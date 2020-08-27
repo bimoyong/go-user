@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package go.srv.user;
+
+service User {
+	rpc Login(LoginReq) returns (LoginRsp) {}
+	rpc Inspect(EmptyReq) returns (InspectRsp) {}
+}
+
+message EmptyReq {
+}
+
+message LoginReq {
+	string id = 1;
+	string secret = 2;
+}
+
+message LoginRsp {
+	string token = 1;
+	string refresh = 2;
+	int64 created = 3;
+	int64 expiry = 4;
+}
+
+message InspectRsp {
+	string id = 1;
+	repeated string scopes = 5;
+}
