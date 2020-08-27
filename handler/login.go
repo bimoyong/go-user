@@ -4,9 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/micro/go-micro/v2/config"
-
 	"github.com/micro/go-micro/v2/auth"
+	"github.com/micro/go-micro/v2/config"
 	log "github.com/micro/go-micro/v2/logger"
 
 	proto "gitlab.com/bimoyong/go-user/proto/user"
