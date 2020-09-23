@@ -7,8 +7,8 @@ import (
 	"github.com/micro/go-micro/v2/config/reader"
 	"github.com/micro/go-micro/v2/server"
 
-	"gitlab.com/bimoyong/go-util/config"
-	"gitlab.com/bimoyong/go-util/config/database"
+	"github.com/bimoyong/go-util/config"
+	"github.com/bimoyong/go-util/config/database"
 )
 
 // Config struct

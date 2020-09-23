@@ -1,7 +1,7 @@
 package subscriber
 
 import (
-	"gitlab.com/bimoyong/go-util/config/database"
+	"github.com/bimoyong/go-util/config/database"
 )
 
 // Close function
