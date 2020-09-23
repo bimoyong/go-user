@@ -1,11 +1,12 @@
+OWNER=bimoyong
 ALIAS=user
 TYPE=srv
-IMAGE_NAME=bimoyong/$(ALIAS)-$(TYPE)
-GIT_COMMIT=$(shell git rev-parse --short HEAD)
-GIT_TAG=$(shell git describe --abbrev=0 --tags --always --match "v*")
-IMAGE_TAG=$(GIT_TAG)-$(GIT_COMMIT)
+IMAGE_NAME=${OWNER}/${ALIAS}-${TYPE}
+GIT_COMMIT=${shell git rev-parse --short HEAD}
+GIT_TAG=${shell git describe --abbrev=0 --tags --always --match "v*"}
+IMAGE_TAG=${GIT_TAG}-${GIT_COMMIT}
 
-SERVER_NAME=go.$(TYPE).$(ALIAS)
+SERVER_NAME=go.${TYPE}.${ALIAS}
 
 run:
 	# MICRO_REGISTRY=consul \
@@ -14,14 +15,14 @@ run:
 	# MICRO_BROKER_ADDRESS=localhost:9092 \
 
 	MICRO_SERVER_VERSION=latest \
-	MICRO_SERVER_NAME=$(SERVER_NAME) \
+	MICRO_SERVER_NAME=${SERVER_NAME} \
 	go run *.go
 
 vendor:
 	go mod vendor
 
 proto:
-	protoc --proto_path=$(GOPATH)/src:. --micro_out=. --go_out=. proto/user/user.proto
+	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/user/user.proto
 
 ARCHS := arm arm64 amd64
 build: proto
@@ -34,18 +35,19 @@ test:
 	go test -v ./... -cover
 
 docker:
-	docker build --build-arg NAME=$(SERVER_NAME) -t $(IMAGE_NAME):$(IMAGE_TAG) .
-	docker tag $(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_NAME):latest
-	docker push $(IMAGE_NAME):$(IMAGE_TAG)
-	docker push $(IMAGE_NAME):latest
+	docker build --build-arg NAME=${SERVER_NAME} -t ${IMAGE_NAME}:${IMAGE_TAG} .
+	docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+	docker push ${IMAGE_NAME}:${IMAGE_TAG}
+	docker push ${IMAGE_NAME}:latest
 
 docker_multiarch:
 	docker buildx build \
-	--build-arg NAME=$(SERVER_NAME) \
-	--build-arg VER=$(IMAGE_TAG) \
-	--push \
-	--platform linux/arm,linux/arm64,linux/amd64 \
-	--tag $(IMAGE_NAME):$(IMAGE_TAG) \
-	--tag $(IMAGE_NAME):latest .
+		--platform linux/arm,linux/arm64,linux/amd64 \
+		--build-arg NAME=${SERVER_NAME} \
+		--build-arg VER=${IMAGE_TAG} \
+		--tag ${IMAGE_NAME}:${IMAGE_TAG} \
+		--tag ${IMAGE_NAME}:latest \
+		--push \
+		.
 
 .PHONY: run vendor proto build build_windows build_windows_nogui test docker
