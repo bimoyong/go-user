@@ -50,4 +50,4 @@ docker_multiarch:
 		--push \
 		.
 
-.PHONY: run vendor proto build build_windows build_windows_nogui test docker
+.PHONY: run vendor proto build test docker docker_multiarch
