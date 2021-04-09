@@ -5,7 +5,7 @@ This is the User Service
 Generated with
 
 ```
-micro new gitlab.com/bimoyong/go-user --namespace=go --type=srv
+micro new github.com/bimoyong/go-user --namespace=go --type=srv
 ```
 
 ## Getting Started

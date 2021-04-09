@@ -9,7 +9,7 @@ import (
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/metadata"
 
-	proto "gitlab.com/bimoyong/go-user/proto/user"
+	proto "github.com/bimoyong/go-user/proto/user"
 )
 
 // Inspect function
